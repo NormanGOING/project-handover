@@ -2,6 +2,8 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+![校验状态](https://github.com/NormanGOING/project-handover/actions/workflows/validate.yml/badge.svg)
+
 > 在换对话、换 agent、上下文过长或阶段性收尾时，把当前项目完整交给下一个 agent，而不是丢给它一段聊天摘要。
 
 **它是什么：** 一个 Codex / Claude Code skill。它会检查对话、项目文件、git 状态和环境，然后生成 `HANDOVER.md` 与 `SYSTEM_PROMPT_NEXT.md`。交接的是“可执行的状态”，不是聊天记录。
@@ -27,13 +29,13 @@
 ### Codex
 
 ```bash
-git clone <repo-url> ~/.codex/skills/project-handover
+git clone https://github.com/NormanGOING/project-handover.git ~/.codex/skills/project-handover
 ```
 
 Windows PowerShell：
 
 ```powershell
-git clone <repo-url> "$env:USERPROFILE\.codex\skills\project-handover"
+git clone https://github.com/NormanGOING/project-handover.git "$env:USERPROFILE\.codex\skills\project-handover"
 ```
 
 ### Claude Code
@@ -41,7 +43,7 @@ git clone <repo-url> "$env:USERPROFILE\.codex\skills\project-handover"
 `SKILL.md` 使用相同格式，可以放到：
 
 ```bash
-git clone <repo-url> ~/.claude/skills/project-handover
+git clone https://github.com/NormanGOING/project-handover.git ~/.claude/skills/project-handover
 ```
 
 也可以复制到项目的 `.claude/skills/` 目录。

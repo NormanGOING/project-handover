@@ -2,6 +2,8 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+![Validate skill](https://github.com/NormanGOING/project-handover/actions/workflows/validate.yml/badge.svg)
+
 > Generate a complete project handover package for a fresh AI agent: goals, current state, decisions, dead ends, artifacts, environment, and next steps.
 
 **What it is:** A Codex / Claude Code skill that produces `HANDOVER.md` plus `SYSTEM_PROMPT_NEXT.md` after inspecting the conversation, project files, git state, and environment. It transfers executable state, not a chat transcript.
@@ -27,13 +29,13 @@ This skill inspects the conversation, project files, git state, configuration, a
 ### Codex
 
 ```bash
-git clone <repo-url> ~/.codex/skills/project-handover
+git clone https://github.com/NormanGOING/project-handover.git ~/.codex/skills/project-handover
 ```
 
 Windows PowerShell:
 
 ```powershell
-git clone <repo-url> "$env:USERPROFILE\.codex\skills\project-handover"
+git clone https://github.com/NormanGOING/project-handover.git "$env:USERPROFILE\.codex\skills\project-handover"
 ```
 
 ### Claude Code
@@ -41,7 +43,7 @@ git clone <repo-url> "$env:USERPROFILE\.codex\skills\project-handover"
 `SKILL.md` uses the same format. Install it with:
 
 ```bash
-git clone <repo-url> ~/.claude/skills/project-handover
+git clone https://github.com/NormanGOING/project-handover.git ~/.claude/skills/project-handover
 ```
 
 Or copy it into a project's `.claude/skills/` directory.
