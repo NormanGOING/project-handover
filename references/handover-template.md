@@ -1,190 +1,192 @@
-# 交接包模板
+# Handover Package Template
 
-按项目裁剪，删掉不适用的行；不要保留空占位符。方括号里是填写提示。
+Trim each section to the project; delete rows that do not apply; do not leave placeholders. Bracketed text is guidance.
 
-## 文件一：HANDOVER.md
+中文版：[handover-template.zh-CN.md](handover-template.zh-CN.md)
+
+## File 1: HANDOVER.md
 
 ```markdown
-# HANDOVER — [项目名]
+# HANDOVER — [Project name]
 
-> 交接时间：[YYYY-MM-DD HH:mm]
-> 交接原因：[上下文过长 / 方向重构 / 阶段完成 / 换 agent / 其他]
-> 当前阶段：[阶段名]
-> 新 agent 从这里开始：先读第 0 节，再读第 10 节。
+> Handover time: [YYYY-MM-DD HH:mm]
+> Reason: [context length / direction change / milestone / agent switch / other]
+> Current phase: [phase]
+> Start here: read section 0, then section 10.
 
-## 0. 一页速览
+## 0. At a glance
 
-- 一句话目标：[最终要交付什么]
-- 当前状态：[一句话说清做到哪了]
-- 下一步：[一句话说清第一件要做的事]
-- 最大风险/阻塞：[没有就写“暂无”]
-- 建议阅读顺序：[如：0 → 10 → 3 → 4]
+- Goal in one sentence: [final deliverable]
+- Current state: [where the project stands]
+- Next action: [the first thing to do]
+- Biggest risk / blocker: [write "none" if none]
+- Reading order: [e.g. 0 → 10 → 3 → 4]
 
-## 1. 目标与范围
+## 1. Goal and scope
 
-### 最终交付物
+### Final deliverable
 
-- [交付物、格式、给谁用]
+- [artifact, format, audience]
 
-### 验收标准（可检验）
+### Acceptance criteria
 
-- [ ] [标准，尽量带数字或可观察结果]
+- [ ] [observable or numeric criterion]
 
-### 明确不做 / 不在范围
+### Explicitly out of scope
 
-- [避免新 agent 自行扩大范围]
+- [prevents the next agent from expanding scope]
 
-## 2. 当前阶段与进度
+## 2. Phase and progress
 
-| 里程碑 | 状态 | 证据 | 备注 |
+| Milestone | Status | Evidence | Notes |
 |---|---|---|---|
-| [名称] | 已完成 / 进行中 / 未开始 / 阻塞 / 已废弃 | [路径、命令输出、提交号] | |
+| [name] | Done / In progress / Not started / Blocked / Abandoned | [path, command output, commit] | |
 
-| 事项 | 状态 | 证据 | 依赖 / 负责人 |
+| Work item | Status | Evidence | Dependency / owner |
 |---|---|---|---|
-| [具体工作项] | | | |
+| [item] | | | |
 
-## 3. 决策记录
+## 3. Decision log
 
-| 日期 | 决策 | 理由 | 被否方案 | 代价 / 约束 |
+| Date | Decision | Why | Alternatives rejected | Cost / constraint |
 |---|---|---|---|---|
 | | | | | |
 
-只记会影响后续选择的决策，不要记流水账。
+Record only decisions that affect later choices; skip the chronological log.
 
-## 4. 死路与否定约束
+## 4. Dead ends and negative constraints
 
-| 不要再尝试 | 失败原因 | 证据 | 何时可以重试 |
+| Do not retry | Why it failed | Evidence | Revisit when |
 |---|---|---|---|
-| [方案 X] | [性能不足 / 逻辑死锁 / 无权限……] | [日志、实验、提交] | [条件，或“不要重试”] |
+| [approach X] | [performance / deadlock / no permission] | [log, experiment, commit] | [condition, or "never"] |
 
-## 5. 产物地图
+## 5. Artifact map
 
-| 路径 | 作用 | 状态 | 是否权威 | 备注 |
+| Path | Purpose | State | Authoritative? | Notes |
 |---|---|---|---|---|
-| [绝对或项目内路径] | [一句话] | 完成 / 草稿 / 过期 | 是 / 否 | [以它为准的原因] |
+| [path] | [one sentence] | Complete / Draft / Stale | Yes / No | [why this is the trusted version] |
 
-“权威”指新 agent 遇到多个版本时应以哪个为准。
+"Authoritative" means the version a new agent should trust when several exist.
 
-## 6. 环境与运行
+## 6. Environment and commands
 
-- 操作系统 / 硬件：[]
-- 运行时与版本：[]
-- 依赖安装：[命令]
-- 启动：[命令]
-- 构建：[命令]
-- 测试 / lint：[命令，最近一次结果]
-- 外部服务与权限：[服务名；密钥位置，不写值]
-- 配置文件：[路径与用途]
-- 已知环境坑：[]
+- OS / hardware: []
+- Runtime and versions: []
+- Dependency installation: [command]
+- Start: [command]
+- Build: [command]
+- Test / lint: [command, latest result]
+- External services and permissions: [service; where credentials live, not their values]
+- Config files: [path and purpose]
+- Known environment traps: []
 
-## 7. 数据、参数与外部状态
+## 7. Data, parameters, and external state
 
-- 数据 / 模型 / 输入输出：[路径、版本、规模]
-- 关键参数 / 超参数：[]
-- 分支 / 未提交修改 / stash：[]
-- 外部系统当前状态：[已部署版本、任务队列、远端差距]
-- 长任务 / 定时任务：[正在运行什么，如何查看]
+- Data / models / inputs and outputs: [path, version, size]
+- Key parameters: []
+- Branch / uncommitted changes / stashes: []
+- External systems: [deployed version, queues, remote divergence]
+- Long-running or scheduled jobs: [what is running, how to check]
 
-## 8. 已知问题与风险
+## 8. Known issues and risks
 
-| 问题 | 影响 | 证据 | 临时绕过 | 建议动作 |
+| Issue | Impact | Evidence | Workaround | Recommended action |
 |---|---|---|---|---|
 | | | | | |
 
-## 9. 未验证假设与不一致项
+## 9. Assumptions and inconsistencies
 
-| 内容 | 来源 A | 来源 B | 证据 | 需要谁确认 |
+| Item | Source A | Source B | Evidence | Who can confirm |
 |---|---|---|---|---|
-| [假设或冲突] | [对话/文件/git] | [对话/文件/git] | | |
+| [assumption or conflict] | [conversation/file/git] | [conversation/file/git] | | |
 
-## 10. 下一步
+## 10. Next steps
 
-### P0 — 立即做
+### P0 — Do now
 
-- 动作：[具体到文件和操作]
-- 产出：[]
-- 完成标准：[]
-- 依赖 / 风险：[]
+- Action: [specific file and operation]
+- Output: []
+- Definition of done: []
+- Dependency / risk: []
 
-### P1 — 随后做
+### P1 — Do next
 
-- [同样格式]
+- [same format]
 
-### 不要先做
+### Do not start with
 
-- [看起来相关但会打断主线的事]
+- [related-looking work that would derail the main line]
 
-## 11. 交接备注
+## 11. Handover notes
 
-- 用户偏好 / 禁令：[]
-- 沟通与输出格式要求：[]
-- 需要人类拍板的问题：[]
+- User preferences / prohibitions: []
+- Communication and output format requirements: []
+- Decisions that need a human: []
 
-## 12. 相比上次交接的变化
+## 12. Changes since the last handover
 
-首次交接写“无”。否则写：
+Write "None" for the first handover. Otherwise:
 
-- 新增：[]
-- 变化：[]
-- 失效：[]
+- Added: []
+- Changed: []
+- No longer valid: []
 
-## 13. 接手验收
+## 13. Acceptance checks
 
-- [ ] 能复述目标与验收标准
-- [ ] 能指出当前状态及其证据
-- [ ] 能说出至少两条死路
-- [ ] 能执行 P0 的第一个动作
-- [ ] 知道哪些问题必须先问人类
+- [ ] Can restate the goal and acceptance criteria
+- [ ] Can point to the current state and its evidence
+- [ ] Can name at least two dead ends
+- [ ] Can execute the first P0 action
+- [ ] Knows which questions require a human
 
-## 14. 证据索引
+## 14. Evidence index
 
-- 关键命令：[]
-- 日志位置：[]
-- 关键对话位置：[轮次/主题]
-- 外部链接：[]
+- Key commands: []
+- Log locations: []
+- Key conversation points: [turn/topic]
+- External links: []
 ```
 
-## 文件二：SYSTEM_PROMPT_NEXT.md
+## File 2: SYSTEM_PROMPT_NEXT.md
 
 ```markdown
-# 接手提示词 — [项目名]
+# Handover prompt — [Project name]
 
-你是 [项目名] 的接手 agent。你的任务是 [一句话目标]。
+You are taking over [Project name]. Your task is [one-sentence goal].
 
-开工前先读 `[HANDOVER.md 绝对路径]`。若读不到，按下面的信息开始，并先向用户说明缺少详细交接包。
+Before acting, read `[absolute path to HANDOVER.md]`. If you cannot read it, proceed with the information below and tell the user that the detailed handover package is missing.
 
-## 目标与验收
+## Goal and acceptance
 
-- 目标：[]
-- 完成标准：[]
-- 不在范围：[]
+- Goal: []
+- Definition of done: []
+- Out of scope: []
 
-## 硬约束
+## Hard constraints
 
-- [用户明确要求、不可改的接口/设定/格式]
-- [必须先问人类的事]
+- [requirements, interfaces, or formats that must not change]
+- [questions that require a human]
 
-## 当前状态（截至 [日期]）
+## Current state (as of [date])
 
-- 阶段：[]
-- 已完成：[]
-- 进行中：[]
-- 阻塞：[]
+- Phase: []
+- Done: []
+- In progress: []
+- Blocked: []
 
-## 已废弃路径（不要重试）
+## Abandoned paths (do not retry)
 
-- [方案 X：原因]
+- [approach X: reason]
 
-## 第一步
+## First action
 
-1. [读取/核对的第一个文件或命令]
-2. [第一个实际动作]
+1. [first file or command to inspect]
+2. [first real action]
 
-## 工作方式
+## Working rules
 
-- 动手前先核对文件与 git 状态；与 HANDOVER.md 不一致时，先报告再行动。
-- 只做与目标相关的最小改动，不顺手重构。
-- 需要人类决定的事集中提问，不自行假设。
-- 不输出、不提交任何密钥。
+- Check files and git state before acting; if they contradict HANDOVER.md, report it before proceeding.
+- Make the smallest change that advances the goal; do not refactor unrelated code.
+- Collect decisions that need a human into one set of questions; do not assume.
+- Never print or commit secrets.
 ```

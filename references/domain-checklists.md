@@ -1,75 +1,77 @@
-# 按任务类型的补充清单
+# Domain Checklists
 
-只读当前任务对应的小节，把适用项写进交接包。查不到但会影响接手的，加入询问清单。
+Read only the section for the current task type. Add applicable items to the handover package. If something is unknown and would affect the handover, add it to the question list.
 
-## 代码 / 架构开发
+中文版：[domain-checklists.zh-CN.md](domain-checklists.zh-CN.md)
 
-- 仓库根、分支、HEAD、未提交与未跟踪文件、stash、与远端差距
-- 运行时版本、包管理器、锁文件、安装命令
-- 启动、构建、测试、lint、类型检查命令及最近结果
-- 入口、核心模块、数据流、外部依赖、API 契约
-- 数据库 / schema / 迁移、feature flag、部署状态
-- 已知报错、日志位置、复现步骤
-- 密钥与凭据的位置（只写变量名或配置文件）
-- 未完成的重构、临时补丁、TODO
-- 下一个改动的验收方式（自动测试或手动步骤）
+## Code / architecture
 
-询问：本地是否有未推送修改、特殊环境变量、私有依赖或无法自动安装的工具。
+- Repository root, branch, HEAD, uncommitted and untracked files, stashes, remote divergence
+- Runtime versions, package manager, lockfile, install command
+- Start, build, test, lint, and typecheck commands with their latest results
+- Entry points, core modules, data flow, external dependencies, API contracts
+- Database / schema / migrations, feature flags, deployment state
+- Known errors, log locations, reproduction steps
+- Credential locations (variable names or config files only)
+- Unfinished refactors, temporary patches, TODOs
+- Acceptance method for the next change (automated tests or manual steps)
 
-## 论文 / 科研 / 实验
+Ask: unpushed local changes, special environment variables, private dependencies, tools that cannot be installed automatically.
 
-- 研究问题、假设、当前结论与置信度
-- 数据集 / 版本 / 划分 / 预处理
-- 模型与超参数、随机种子、框架版本
-- 硬件与算力约束、单次运行时长
-- 已跑通的 benchmark 与指标（原始数字、统计口径）
-- 已否定的假设及原因
-- 图表、表格、附录状态
-- 引用库、目标期刊、格式要求
-- 写作进度与待补实验
-- 可复现命令
+## Research / experiments
 
-询问：是否有未写入对话的实验结果、指标口径、导师或审稿人的硬约束。
+- Research question, hypotheses, current conclusion and confidence
+- Datasets / versions / splits / preprocessing
+- Models and hyperparameters, random seeds, framework versions
+- Hardware and compute constraints, runtime per run
+- Benchmark results and metrics already produced (raw numbers, definitions)
+- Rejected hypotheses and why
+- Figure, table, and appendix status
+- Citation library, target journal, formatting requirements
+- Writing progress and experiments still needed
+- Reproducible commands
 
-## 多 agent / 工作流
+Ask: results not yet in the conversation, metric definitions, hard constraints from advisors or reviewers.
 
-- 各角色职责与边界
-- 消息 / 任务 schema、状态机、超时与重试策略
-- 工具与 MCP 服务清单、权限、鉴权位置
-- 长任务、队列、定时任务当前状态
-- 人工审批点
-- 已知失败模式与降级策略
-- 记忆或状态存放位置
+## Multi-agent / workflows
 
-询问：新 agent 需要继承哪些权限、哪些操作必须人类批准。
+- Roles and responsibility boundaries
+- Message / task schemas, state machine, timeout and retry policy
+- Tools and MCP services, permissions, where authentication lives
+- Long-running jobs, queues, scheduled tasks, and their current state
+- Human approval points
+- Known failure modes and fallback strategies
+- Where memory or state is stored
 
-## 长文 / 剧本 / 策划
+Ask: which permissions the new agent inherits, which actions require human approval.
 
-- 核心命题、目标读者、交付格式与字数
-- 已定稿大纲与各章节状态
-- 世界观、角色卡、术语表、时间线
-- 风格指南与禁用手法
-- 已发现的前后矛盾、伏笔清单
-- 各版本草稿与权威版本
-- 下一步是续写、改写还是统稿
-- 已废弃的情节与设定
+## Long-form writing / scripts / planning
 
-询问：接下来是续写还是润色、哪些设定不可改。
+- Core premise, target audience, format, and word count
+- Finalized outline and chapter status
+- Worldbuilding, character sheets, glossary, timeline
+- Style guide and forbidden devices
+- Known continuity errors and foreshadowing list
+- Draft versions and the authoritative version
+- Whether the next step is drafting, revising, or unifying style
+- Abandoned plots and settings
 
-## 运维 / 部署
+Ask: draft or polish next, which settings must not change.
 
-- 环境清单与访问方式（不含密钥）
-- IaC、配置、镜像版本
-- 备份与回滚步骤
-- 监控、告警、日志位置
-- 当前事故、变更冻结
-- 权限归属与联系人
-- 最近一次变更及结果
+## Operations / deployment
 
-询问：是否有正在进行的变更、谁有权批准上线。
+- Environment list and access method (no secrets)
+- IaC, configuration, image versions
+- Backup and rollback steps
+- Monitoring, alerts, log locations
+- Current incidents, change freezes
+- Ownership and contacts
+- Last change and its result
 
-## 通用补充
+Ask: any change in progress, who can approve a release.
 
-- 截止时间、干系人、预算、合规与隐私要求
-- 外部依赖与等待项
-- 用户明确说过的“不要做”
+## General
+
+- Deadlines, stakeholders, budget, compliance and privacy requirements
+- External dependencies and waiting items
+- Things the user explicitly said not to do

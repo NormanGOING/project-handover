@@ -1,85 +1,87 @@
 ---
 name: project-handover
-description: 在换对话、换 agent、上下文过长、上下文重置（context reset）或阶段性总结/收尾时，生成可独立接手的项目交接包（HANDOVER.md + SYSTEM_PROMPT_NEXT.md），覆盖目标、状态、决策、废弃路径、产物、环境与下一步。也适用于把已有项目整理成新 agent 能读懂的地图。若只需要压缩当前对话、不检查项目文件，用 handoff。
+description: "Create a complete, resumable project handover package (HANDOVER.md + SYSTEM_PROMPT_NEXT.md) when switching conversations or agents, when context is too long or polluted, or at a milestone wrap-up (交接, 上下文重置, 阶段性总结). Covers goals, state, decisions, dead ends, artifacts, environment, risks, and next steps; also maps an existing project for a fresh agent. Use a lighter handoff flow when only a short conversation summary is needed."
 ---
 
-# 项目交接
+# Project Handover
 
-产出一个交接包，让没有任何当前对话记忆的新 agent 能继续工作。交接的是“可执行的状态”，不是聊天记录。输出语言跟随用户，默认中文。
+Produce a handover package that lets a fresh agent with no memory of this conversation continue the work. Transfer executable state, not a chat transcript. Write in the user's language, falling back to English when the user's language is unclear.
 
-## 三条规则
+中文版：[SKILL.zh-CN.md](SKILL.zh-CN.md)
 
-1. **先查后问。** 文件、git、配置、日志、依赖清单能回答的，不问用户。
-2. **事实与意图分开。** 文件和 git 是“当前状态”的准绳；对话是“目标、约定、取舍”的准绳。冲突不静默裁决，写进“不一致项”，附两种说法和证据。
-3. **只读优先。** 不改代码、不移动或重命名文件、不提交、不切分支、不 stash、不 reset、不清理、不启动长任务。发现需要重排时，只在文档里给迁移清单，逐项确认后才动手。
+## Three rules
 
-## 流程
+1. **Inspect before asking.** Never ask the user for a fact you can find in files, git, configuration, logs, or dependency manifests.
+2. **Separate facts from intent.** Files and git are authoritative for current state; the conversation is authoritative for goals, constraints, and trade-offs. When they conflict, do not silently pick one. Record both claims and the evidence under "Inconsistencies".
+3. **Read-only by default.** Do not edit code, move or rename files, commit, switch branches, stash, reset, clean, or start long-running jobs. If the project needs restructuring, propose a migration list and wait for explicit per-item approval.
 
-### 1. 定位项目与输出目录
+## Workflow
 
-- 找项目根：git 根目录、用户明确指定的目录，或当前工作目录。
-- 默认输出 `<项目根>/handover/<YYYY-MM-DD-HHmm>/`；同名已存在就加 `-2`、`-3`，不覆盖。
-- 不在项目目录、或项目边界不清：先问用户放哪、交接范围是什么。
+### 1. Locate the project and output directory
 
-### 2. 并行收集事实
+- Find the project root: the git root, a directory the user named, or the current working directory.
+- Write to `<project-root>/handover/<YYYY-MM-DD-HHmm>/` by default. If the name exists, append `-2`, `-3`, and so on. Never overwrite.
+- If you are not in a project or the boundary is unclear, ask where to write the package and what is in scope.
 
-- **对话**：目标、用户明确要求、纠正、否决过的方案、承诺、未解决问题、最近结论。运行环境若有线程或会话读取工具，用它补早先上下文。
-- **文件**：目录结构、README、文档、配置、依赖清单、测试、脚本、数据与资产、日志。大仓库先按模块分层，不必逐文件枚举。
-- **git**：分支、HEAD、`status`（含未跟踪）、最近提交、与远端差距、stash。
-- **环境**：运行时与版本、安装方式、外部服务、硬件、关键路径。
-- **运行状态**：只跑只读或明确安全的检查（测试、build、lint）；记录命令与结果摘要，不修问题、不改状态。
+### 2. Collect facts in parallel
 
-### 3. 建状态表
+- **Conversation**: goals, explicit user requirements, corrections, rejected approaches, promises, open questions, and the latest conclusions. If the runtime exposes thread or session reading tools, use them to recover earlier context.
+- **Files**: directory structure, README, docs, configuration, dependency manifests, tests, scripts, data, assets, and logs. For large repositories, group by module instead of listing every file.
+- **Git**: branch, HEAD, status (including untracked files), recent commits, divergence from the remote, and stashes.
+- **Environment**: runtime and versions, installation method, external services, hardware, and key paths.
+- **Runtime state**: run only read-only or clearly safe checks (tests, build, lint). Record the command and a summary of the result. Do not fix problems or change state.
 
-每项标成：已完成 / 进行中 / 未开始 / 阻塞 / 已废弃。
+### 3. Build a state table
 
-每条都要有证据：文件路径、命令与输出、提交号，或对话中的原话要点。没有证据的写“推断”或“假设”。
+Label every item as: Done / In progress / Not started / Blocked / Abandoned.
 
-### 4. 找缺口并询问
+Back each item with evidence: a file path, a command and its output, a commit hash, or the relevant point from the conversation. Label unsupported claims as "inference" or "assumption".
 
-只问查不到、且会影响接手的事：隐性验收标准、业务背景、外部权限、口头约定、优先级、下一步意图。
+### 4. Find gaps and ask
 
-- 一轮问 2–5 个，编号，附推荐答案。
-- 用户回答后更新状态表，再判断是否需要下一轮。没有硬性轮数上限；宁可多确认一轮，也不要把关键假设留白。
-- 文档里每个未被证实的判断都显式标“假设”。
+Ask only about things you cannot discover and that would change how the next agent works: implicit acceptance criteria, business context, external permissions, verbal agreements, priorities, and intended next steps.
 
-### 5. 写交接包
+- Ask 2–5 numbered questions per round, each with your recommended answer.
+- Update the state table after the user answers, then decide whether another round is needed. There is no hard round limit; one extra round is cheaper than leaving a critical assumption blank.
+- Label every unverified judgment in the package as an "assumption".
 
-读 [references/handover-template.md](references/handover-template.md)，按模板写：
+### 5. Write the package
 
-- `HANDOVER.md`：完整状态、证据、决策、死路、产物地图、环境、风险、下一步。
-- `SYSTEM_PROMPT_NEXT.md`：可直接粘贴的开局提示。包含目标、硬约束、状态摘要、已废弃路径、第一步、完成标准，并要求先读 `HANDOVER.md`；即使读不到文件也能开工。
+Read [references/handover-template.md](references/handover-template.md) and follow it:
 
-再按任务类型读 [references/domain-checklists.md](references/domain-checklists.md) 的对应小节，补齐该类型特有项。只读相关小节。
+- `HANDOVER.md`: complete state, evidence, decisions, dead ends, artifact map, environment, risks, and next steps.
+- `SYSTEM_PROMPT_NEXT.md`: a ready-to-paste opening prompt. Include the goal, hard constraints, state summary, abandoned paths, first action, and definition of done. Tell the new agent to read `HANDOVER.md` first, but keep the prompt usable if that file cannot be read.
 
-`HANDOVER.md` 里用项目相对路径；`SYSTEM_PROMPT_NEXT.md` 里用绝对路径，保证新对话能直接打开。
+Then read the relevant section of [references/domain-checklists.md](references/domain-checklists.md) for the task type and fill in its specific items. Do not load unrelated sections.
 
-遇到已有 `handover/`：新建时间戳目录，先读最近一份，保留仍有效内容，并在新文档里写“相比上次交接的变化”（新增 / 变化 / 失效）。
+Use project-relative paths in `HANDOVER.md`. Use absolute paths in `SYSTEM_PROMPT_NEXT.md` so the next conversation can open them directly.
 
-### 6. 自检
+If `handover/` already exists, create a new timestamped directory, read the latest package, carry forward what is still valid, and add a "Changes since the last handover" section (added / changed / no longer valid).
 
-写完逐条核对：
+### 6. Self-check
 
-- 新 agent 能回答：做什么、为什么、现在在哪、哪些路不能走、下一步做什么、怎样算完成、环境怎么跑、证据在哪？
-- 每个“已完成”有证据；每个“下一步”是可执行动作；每个路径真实存在。
-- 没有密钥、密码、令牌、个人敏感信息。
-- 没有把计划写成已完成，没有隐藏失败和未验证结论。
-- `SYSTEM_PROMPT_NEXT.md` 单独粘贴时仍然可用。
+Before delivering, verify:
 
-在 `HANDOVER.md` 末尾生成 3–6 条针对本项目的“接手验收”清单，让新 agent 用自己的话复述关键状态后再动手。
+- Can a fresh agent answer: what are we building, why, where are we now, which paths are closed, what is the next action, what counts as done, how do I run it, and where is the evidence?
+- Every "Done" has evidence; every next step is an executable action; every path exists.
+- No API keys, passwords, tokens, or personal data.
+- Nothing planned is presented as done; no failure or unverified conclusion is hidden.
+- `SYSTEM_PROMPT_NEXT.md` still works when pasted on its own.
 
-### 7. 交付
+End `HANDOVER.md` with 3–6 project-specific acceptance checks that make the new agent restate the critical state before acting.
 
-报告两个文件的绝对路径，加一句下一次交接时该怎么用。不改项目其它文件。
+### 7. Deliver
 
-## 质量红线
+Report the absolute paths of both files and one sentence on how to use the package next time. Do not modify any other project file.
 
-- 不写“继续之前的工作”这类无法执行的话。
-- 不逐字复述长对话，只提炼决策、理由和证据。
-- 不删除、不覆盖旧交接。
-- 不把敏感值写进文档，只写变量名、配置文件位置和获取方式。
-- 上下文即将耗尽时，先落盘最小可用版本，再增量补齐。
+## Quality bar
 
-## 何时不用
+- No vague instructions such as "continue the previous work".
+- Do not replay long conversations; extract decisions, reasons, and evidence.
+- Never delete or overwrite an older handover.
+- Never write secret values; record only variable names, config locations, and how to obtain them.
+- If context is nearly exhausted, write a minimal usable package first, then improve it incrementally.
 
-只需要一段对话摘要、不需要检查项目文件时，用更轻量的摘要流程即可（若已安装 `handoff`，可以直接用它）。
+## When not to use
+
+If the user only needs a short conversation summary and no project inspection, use a lighter handoff flow (for example, the `handoff` skill when available).
