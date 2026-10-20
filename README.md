@@ -143,6 +143,10 @@ The skill instructions are English-primary. Chinese translations are included:
 - Very large repositories should be handed over module by module rather than listing every file at once.
 - Review the generated prompt before giving it to a new agent.
 
+## Validation
+
+Run `python scripts/validate.py` before opening a PR. CI runs the same check on every push.
+
 ## Contributing
 
 Issues and pull requests are welcome. One rule: **add decision criteria, not more fixed steps.**
