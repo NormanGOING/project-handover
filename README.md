@@ -13,6 +13,8 @@
 - `HANDOVER.md`: goal, progress, decisions, dead ends, artifact map, environment, risks, and next steps — each backed by evidence where possible.
 - `SYSTEM_PROMPT_NEXT.md`: a ready-to-paste opening prompt with hard constraints, state summary, first action, and definition of done.
 
+It also reads task-specific checklists and asks about gaps instead of guessing.
+
 ## Why
 
 Long conversations drift. Common failures:
@@ -21,6 +23,8 @@ Long conversations drift. Common failures:
 - Old attempts pollute the context and failed paths get retried.
 - Conclusions stay in the chat and disappear with the session.
 - The handover says what was discussed but not what the project actually is now.
+
+Long histories are not just expensive. They are noisy. Re-feeding them consumes tokens, increases latency, and lets stale decisions compete with the current state.
 
 This skill inspects the conversation, project files, git state, configuration, and test results before writing. When sources conflict, it does not guess; it records both claims under "Inconsistencies".
 
