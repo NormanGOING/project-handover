@@ -4,9 +4,9 @@
 
 ![校验状态](https://github.com/NormanGOING/project-handover/actions/workflows/validate.yml/badge.svg)
 
-> 在换对话、换 agent、上下文过长或阶段性收尾时，把当前项目完整交给下一个 agent，而不是丢给它一段聊天摘要。
+> 交接项目，而不是交接聊天记录。
 
-**它是什么：** 一个 Codex / Claude Code skill。它会检查对话、项目文件、git 状态和环境，然后生成 `HANDOVER.md` 与 `SYSTEM_PROMPT_NEXT.md`。交接的是“可执行的状态”，不是聊天记录。
+`project-handover` 会检查对话、项目文件、git 状态和环境，然后生成完整的交接包：`HANDOVER.md` 与 `SYSTEM_PROMPT_NEXT.md`，覆盖目标、当前状态、决策、死路、产物、环境和下一步。
 
 ## 输出什么
 
@@ -25,6 +25,14 @@
 这个 skill 会先检查对话、项目文件、git 状态、配置和测试结果，再生成交接包。信息对不上时，它不会替你猜，而是把冲突写进 `HANDOVER.md` 的“不一致项”。
 
 ## 安装
+
+### 一条命令（推荐）
+
+```bash
+npx skills@latest add NormanGOING/project-handover
+```
+
+这会通过 [skills.sh](https://skills.sh) CLI 安装。
 
 ### Codex
 

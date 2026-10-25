@@ -4,9 +4,9 @@
 
 ![Validate skill](https://github.com/NormanGOING/project-handover/actions/workflows/validate.yml/badge.svg)
 
-> Generate a complete project handover package for a fresh AI agent: goals, current state, decisions, dead ends, artifacts, environment, and next steps.
+> Hand over the project, not the chat.
 
-**What it is:** A Codex / Claude Code skill that produces `HANDOVER.md` plus `SYSTEM_PROMPT_NEXT.md` after inspecting the conversation, project files, git state, and environment. It transfers executable state, not a chat transcript.
+`project-handover` produces a complete handover package for a fresh AI agent: goals, current state, decisions, dead ends, artifacts, environment, and next steps. It inspects the conversation, project files, git state, and environment, then writes `HANDOVER.md` plus `SYSTEM_PROMPT_NEXT.md`.
 
 ## What you get
 
@@ -25,6 +25,14 @@ Long conversations drift. Common failures:
 This skill inspects the conversation, project files, git state, configuration, and test results before writing. When sources conflict, it does not guess; it records both claims under "Inconsistencies".
 
 ## Install
+
+### One command (recommended)
+
+```bash
+npx skills@latest add NormanGOING/project-handover
+```
+
+This installs the skill through the [skills.sh](https://skills.sh) CLI.
 
 ### Codex
 
